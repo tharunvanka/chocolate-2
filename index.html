@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Pranathi ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+
+  background:
+    linear-gradient(rgba(18,6,6,.88), rgba(18,6,6,.95)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Floating calm hearts */
+.heart {
+  position: absolute;
+  bottom: -30px;
+  font-size: 18px;
+  opacity: .4;
+  animation: float 12s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: .4; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Main card */
+.card {
+  width: 92%;
+  max-width: 390px;
+  padding: 34px 26px;
+  text-align: center;
+  color: #fff;
+
+  background: rgba(0,0,0,.42);
+  backdrop-filter: blur(12px);
+  border-radius: 26px;
+  box-shadow: 0 35px 60px rgba(0,0,0,.7);
+
+  animation: cardFloat 6s ease-in-out infinite,
+             fadeIn 2.5s ease forwards;
+}
+
+/* Gentle breathing */
+@keyframes cardFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Name reveal */
+.name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 36px;
+  color: #ffdede;
+  margin-bottom: 14px;
+
+  opacity: 0;
+  animation: nameReveal 3s ease forwards;
+  animation-delay: 1.2s;
+}
+
+@keyframes nameReveal {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+.icons {
+  font-size: 38px;
+  margin-bottom: 16px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.message {
+  font-size: 17px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: textReveal 2.5s ease forwards;
+  animation-delay: 2.2s;
+}
+
+@keyframes textReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tap {
+  margin-top: 18px;
+  font-size: 13px;
+  opacity: .65;
+  animation: fadeBlink 2.5s infinite;
+}
+
+@keyframes fadeBlink {
+  0%,100% { opacity: .3; }
+  50% { opacity: .7; }
+}
+
+/* Hidden intense message */
+.hidden {
+  display: none;
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #ffe4e4;
+  animation: hiddenReveal 2.5s ease forwards;
+}
+
+@keyframes hiddenReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<span class="heart" style="left:12%">❤️</span>
+<span class="heart" style="left:30%; animation-delay:3s;">🤎</span>
+<span class="heart" style="left:50%; animation-delay:6s;">❤️</span>
+<span class="heart" style="left:70%; animation-delay:2s;">🤎</span>
+<span class="heart" style="left:88%; animation-delay:5s;">❤️</span>
+
+<div class="card" onclick="reveal(); playMusic();">
+  <div class="name">Pranathi</div>
+
+  <div class="icons">🍫❤️</div>
+
+  <div class="message">
+    I don’t need chocolate to crave sweetness.<br><br>
+    I crave <b>you</b> — your touch, your love, your presence.
+  </div>
+
+  <div class="tap">tap anywhere 💌</div>
+
+  <div class="hidden" id="secret">
+    I want you…<br>
+    I’m craving for you — slowly, deeply, endlessly.<br><br>
+    You’re my chocolate, Pranathi —  
+    the addiction my heart chooses every time 🤎🍫<br><br>
+    <b>Happy Chocolate Day, my love ❤️</b>
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8d9c1e3b8c.mp3">
+</audio>
+
+<script>
+let played = false;
+
+function reveal() {
+  document.getElementById("secret").style.display = "block";
+}
+
+function playMusic() {
+  if (!played) {
+    const m = document.getElementById("music");
+    m.volume = 0;
+    m.play();
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 0.6) {
+        v += 0.02;
+        m.volume = v;
+      } else clearInterval(fade);
+    }, 200);
+    played = true;
+  }
+}
+</script>
+
+</body>
+</html>
