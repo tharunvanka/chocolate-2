@@ -3,194 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teddy Day 🤍</title>
+<title>Be My Teddy 🧸</title>
 
-<!-- Soft elegant font -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --warm-bg: rgba(245, 230, 220, 0.85);
-  --soft-dark: rgba(60, 40, 40, 0.45);
-  --text-main: #3d2b2b;
-  --text-soft: #6b4f4f;
-}
-
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: 'Playfair Display', serif;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(180deg, #f6efe9, #e8d9cf);
   overflow: hidden;
-
-  background:
-    linear-gradient(var(--warm-bg), var(--warm-bg)),
-    url("https://images.unsplash.com/photo-1608889175693-6fa2c63a1c4c");
-  background-size: cover;
-  background-position: center;
 }
 
-/* soft floating particles (hug feel) */
-.particle {
-  position: absolute;
-  bottom: -20px;
-  width: 6px;
-  height: 6px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  animation: float 14s linear infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); opacity: 0; }
-  20% { opacity: 0.5; }
-  100% { transform: translateY(-120vh); opacity: 0; }
-}
-
-.card {
-  width: 92%;
-  max-width: 400px;
-  padding: 34px 28px;
+.container {
   text-align: center;
-
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(12px);
-  border-radius: 28px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
-
-  animation: fadeUp 2.6s ease forwards;
+  padding: 20px;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.hint {
+  font-size: 16px;
+  color: #6a4a4a;
+  opacity: 0.8;
+  margin-bottom: 20px;
 }
 
-/* Name */
 .name {
   font-family: 'Great Vibes', cursive;
-  font-size: 38px;
-  color: var(--text-soft);
-  margin-bottom: 14px;
-
+  font-size: 42px;
+  color: #5a3a3a;
   opacity: 0;
-  animation: nameFade 3s ease forwards;
-  animation-delay: 1s;
+  transition: opacity 2s ease;
 }
 
-@keyframes nameFade {
-  from { opacity: 0; filter: blur(6px); }
-  to { opacity: 1; filter: blur(0); }
-}
-
-/* Main message */
 .message {
+  margin-top: 20px;
   font-size: 18px;
   line-height: 1.8;
-  color: var(--text-main);
-
-  opacity: 0;
-  animation: textFade 2.6s ease forwards;
-  animation-delay: 2.2s;
-}
-
-@keyframes textFade {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.tap {
-  margin-top: 20px;
-  font-size: 14px;
-  color: var(--text-soft);
-  opacity: 0.7;
-  animation: pulse 2.8s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 0.4; }
-  50% { opacity: 0.9; }
-}
-
-/* Hidden comfort message */
-.hidden {
-  display: none;
-  margin-top: 22px;
-  font-size: 17px;
-  line-height: 1.8;
   color: #4a2f2f;
-
-  animation: hugReveal 3s ease forwards;
-}
-
-@keyframes hugReveal {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+  opacity: 0;
+  transition: opacity 2.5s ease;
 }
 </style>
 </head>
 
 <body>
 
-<!-- soft particles -->
-<span class="particle" style="left:10%"></span>
-<span class="particle" style="left:30%; animation-delay:3s;"></span>
-<span class="particle" style="left:50%; animation-delay:6s;"></span>
-<span class="particle" style="left:70%; animation-delay:2s;"></span>
-<span class="particle" style="left:90%; animation-delay:5s;"></span>
+<div class="container"
+     onmousedown="startHug()"
+     onmouseup="endHug()"
+     ontouchstart="startHug()"
+     ontouchend="endHug()">
 
-<div class="card" onclick="reveal(); playMusic();">
-  <div class="name">Pranathi</div>
+  <div class="hint">hold me for a moment 🧸</div>
 
-  <div class="message">
+  <div class="name" id="name">Pranathi</div>
+
+  <div class="message" id="msg">
     I might not look perfect,<br>
     but I can be your teddy —<br>
     someone you can lean on,<br>
-    hug tightly, and feel safe with. 🧸🤍
-  </div>
+    hug tightly, and feel safe with. 🤍<br><br>
 
-  <div class="tap">tap for a hug 🧸</div>
-
-  <div class="hidden" id="secret">
-    When you’re tired, rest here.<br>
-    When your heart feels heavy, come closer.<br><br>
-    I’ll hold you quietly,<br>
-    warmly,<br>
-    always.<br><br>
-    <b>Happy Teddy Day, Pranathi 🤍🧸</b>
+    Happy Teddy Day 🧸
   </div>
 </div>
 
-<!-- warm instrumental music -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/03/28/audio_7f1f7c9a1a.mp3">
+  <source src="https://cdn.pixabay.com/audio/2023/04/04/audio_1c5f2b7d79.mp3">
 </audio>
 
 <script>
-let started = false;
+const nameEl = document.getElementById("name");
+const msgEl = document.getElementById("msg");
+const music = document.getElementById("music");
 
-function reveal() {
-  document.getElementById("secret").style.display = "block";
+function startHug() {
+  nameEl.style.opacity = 1;
+  msgEl.style.opacity = 1;
+
+  music.volume = 0;
+  music.play();
+  let v = 0;
+  const fade = setInterval(() => {
+    if (v < 0.5) {
+      v += 0.02;
+      music.volume = v;
+    } else clearInterval(fade);
+  }, 200);
 }
 
-function playMusic() {
-  if (!started) {
-    const m = document.getElementById("music");
-    m.volume = 0;
-    m.play();
-    let v = 0;
-    const fade = setInterval(() => {
-      if (v < 0.5) {
-        v += 0.015;
-        m.volume = v;
-      } else clearInterval(fade);
-    }, 200);
-    started = true;
-  }
+function endHug() {
+  // Optional: keep content visible or fade slightly
 }
 </script>
 
