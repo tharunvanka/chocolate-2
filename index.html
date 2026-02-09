@@ -3,137 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Pranathi ❤️</title>
+<title>Teddy Day 🤍</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<!-- Soft elegant font -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --warm-bg: rgba(245, 230, 220, 0.85);
+  --soft-dark: rgba(60, 40, 40, 0.45);
+  --text-main: #3d2b2b;
+  --text-soft: #6b4f4f;
+}
+
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: 'Playfair Display', serif;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
 
   background:
-    linear-gradient(rgba(18,6,6,.88), rgba(18,6,6,.95)),
-    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+    linear-gradient(var(--warm-bg), var(--warm-bg)),
+    url("https://images.unsplash.com/photo-1608889175693-6fa2c63a1c4c");
   background-size: cover;
   background-position: center;
 }
 
-/* Floating calm hearts */
-.heart {
+/* soft floating particles (hug feel) */
+.particle {
   position: absolute;
-  bottom: -30px;
-  font-size: 18px;
-  opacity: .4;
-  animation: float 12s linear infinite;
+  bottom: -20px;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  animation: float 14s linear infinite;
 }
 
 @keyframes float {
   0% { transform: translateY(0); opacity: 0; }
-  20% { opacity: .4; }
+  20% { opacity: 0.5; }
   100% { transform: translateY(-120vh); opacity: 0; }
 }
 
-/* Main card */
 .card {
   width: 92%;
-  max-width: 390px;
-  padding: 34px 26px;
+  max-width: 400px;
+  padding: 34px 28px;
   text-align: center;
-  color: #fff;
 
-  background: rgba(0,0,0,.42);
+  background: rgba(255,255,255,0.55);
   backdrop-filter: blur(12px);
-  border-radius: 26px;
-  box-shadow: 0 35px 60px rgba(0,0,0,.7);
+  border-radius: 28px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
 
-  animation: cardFloat 6s ease-in-out infinite,
-             fadeIn 2.5s ease forwards;
+  animation: fadeUp 2.6s ease forwards;
 }
 
-/* Gentle breathing */
-@keyframes cardFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(25px); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Name reveal */
+/* Name */
 .name {
   font-family: 'Great Vibes', cursive;
-  font-size: 36px;
-  color: #ffdede;
+  font-size: 38px;
+  color: var(--text-soft);
   margin-bottom: 14px;
 
   opacity: 0;
-  animation: nameReveal 3s ease forwards;
-  animation-delay: 1.2s;
+  animation: nameFade 3s ease forwards;
+  animation-delay: 1s;
 }
 
-@keyframes nameReveal {
+@keyframes nameFade {
   from { opacity: 0; filter: blur(6px); }
   to { opacity: 1; filter: blur(0); }
 }
 
-.icons {
-  font-size: 38px;
-  margin-bottom: 16px;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-}
-
+/* Main message */
 .message {
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.8;
+  color: var(--text-main);
+
   opacity: 0;
-  animation: textReveal 2.5s ease forwards;
+  animation: textFade 2.6s ease forwards;
   animation-delay: 2.2s;
 }
 
-@keyframes textReveal {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes textFade {
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .tap {
-  margin-top: 18px;
-  font-size: 13px;
-  opacity: .65;
-  animation: fadeBlink 2.5s infinite;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-soft);
+  opacity: 0.7;
+  animation: pulse 2.8s infinite;
 }
 
-@keyframes fadeBlink {
-  0%,100% { opacity: .3; }
-  50% { opacity: .7; }
+@keyframes pulse {
+  0%,100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
 }
 
-/* Hidden intense message */
+/* Hidden comfort message */
 .hidden {
   display: none;
-  margin-top: 20px;
-  font-size: 16px;
+  margin-top: 22px;
+  font-size: 17px;
   line-height: 1.8;
-  color: #ffe4e4;
-  animation: hiddenReveal 2.5s ease forwards;
+  color: #4a2f2f;
+
+  animation: hugReveal 3s ease forwards;
 }
 
-@keyframes hiddenReveal {
+@keyframes hugReveal {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
@@ -142,57 +136,60 @@ body {
 
 <body>
 
-<span class="heart" style="left:12%">❤️</span>
-<span class="heart" style="left:30%; animation-delay:3s;">🤎</span>
-<span class="heart" style="left:50%; animation-delay:6s;">❤️</span>
-<span class="heart" style="left:70%; animation-delay:2s;">🤎</span>
-<span class="heart" style="left:88%; animation-delay:5s;">❤️</span>
+<!-- soft particles -->
+<span class="particle" style="left:10%"></span>
+<span class="particle" style="left:30%; animation-delay:3s;"></span>
+<span class="particle" style="left:50%; animation-delay:6s;"></span>
+<span class="particle" style="left:70%; animation-delay:2s;"></span>
+<span class="particle" style="left:90%; animation-delay:5s;"></span>
 
 <div class="card" onclick="reveal(); playMusic();">
   <div class="name">Pranathi</div>
 
-  <div class="icons">🍫❤️</div>
-
   <div class="message">
-    I don’t need chocolate to crave sweetness.<br><br>
-    I crave <b>you</b> — your touch, your love, your presence.
+    I might not look perfect,<br>
+    but I can be your teddy —<br>
+    someone you can lean on,<br>
+    hug tightly, and feel safe with. 🧸🤍
   </div>
 
-  <div class="tap">tap anywhere 💌</div>
+  <div class="tap">tap for a hug 🧸</div>
 
   <div class="hidden" id="secret">
-    I want you…<br>
-    I’m craving for you — slowly, deeply, endlessly.<br><br>
-    You’re my chocolate, Pranathi —  
-    the addiction my heart chooses every time 🤎🍫<br><br>
-    <b>Happy Chocolate Day, my love ❤️</b>
+    When you’re tired, rest here.<br>
+    When your heart feels heavy, come closer.<br><br>
+    I’ll hold you quietly,<br>
+    warmly,<br>
+    always.<br><br>
+    <b>Happy Teddy Day, Pranathi 🤍🧸</b>
   </div>
 </div>
 
+<!-- warm instrumental music -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8d9c1e3b8c.mp3">
+  <source src="https://cdn.pixabay.com/audio/2023/03/28/audio_7f1f7c9a1a.mp3">
 </audio>
 
 <script>
-let played = false;
+let started = false;
 
 function reveal() {
   document.getElementById("secret").style.display = "block";
 }
 
 function playMusic() {
-  if (!played) {
+  if (!started) {
     const m = document.getElementById("music");
     m.volume = 0;
     m.play();
     let v = 0;
     const fade = setInterval(() => {
-      if (v < 0.6) {
-        v += 0.02;
+      if (v < 0.5) {
+        v += 0.015;
         m.volume = v;
       } else clearInterval(fade);
     }, 200);
-    played = true;
+    started = true;
   }
 }
 </script>
