@@ -8,6 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Sacramento&display=swap" rel="stylesheet">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -16,33 +20,35 @@ body {
 }
 
 /* ---------- BACKGROUND LAYERS ---------- */
-
 .bg {
   position: fixed;
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: opacity 3.2s ease;
+  transition: opacity 3s ease;
 }
 
-/* 1️⃣ Teddy Bear – portrait feel, soft blur */
+/* 1️⃣ FIRST: SINGLE TEDDY (slight blur, portrait feel) */
 #bg1 {
   background-image:
-    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-    url("https://images.unsplash.com/photo-1549880338-65ddcdfd017b");
-  filter: blur(3px);
-  transform: scale(1.05);
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("https://images.unsplash.com/photo-Ad3DSgYUszI?auto=format&fit=crop&w=1200&q=80");
+  filter: blur(4px);
+  transform: scale(1.08);
   opacity: 1;
 }
 
-/* 2️⃣ Hugging – warm, emotional */
+/* 2️⃣ SECOND: TEDDY HUG (clearer, warm) */
 #bg2 {
   background-image:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e");
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("https://images.unsplash.com/photo-aqUBdrGeAMw?auto=format&fit=crop&w=1200&q=80");
+  filter: blur(1px);
+  transform: scale(1.05);
   opacity: 0;
 }
 
+/* ---------- LAYOUT ---------- */
 .container {
   position: relative;
   z-index: 2;
@@ -51,10 +57,10 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 20px;
 }
 
-/* ---------- FIRST PART ---------- */
-
+/* ---------- FIRST PART (HUG METER) ---------- */
 .hint {
   font-size: 16px;
   color: #fff;
@@ -81,14 +87,14 @@ body {
 
 .percent {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
   color: #fff;
 }
 
-/* ---------- SECOND PART ---------- */
-
+/* ---------- SECOND PART (MESSAGE) ---------- */
 .message {
   display: none;
   margin-top: 30px;
@@ -120,15 +126,28 @@ body {
 }
 
 /* ---------- ANIMATIONS ---------- */
-
 @keyframes nameWrite {
-  from { opacity: 0; transform: translateY(12px); letter-spacing: 6px; }
-  to { opacity: 1; transform: translateY(0); letter-spacing: 1px; }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    letter-spacing: 6px;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 1px;
+  }
 }
 
 @keyframes lineAppear {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 </head>
@@ -207,7 +226,7 @@ function start() {
   interval = setInterval(() => {
     if (progress < 100) {
       progress++;
-      fill.style.clipPath = `inset(${100-progress}% 0 0 0)`;
+      fill.style.clipPath = `inset(${100 - progress}% 0 0 0)`;
       percent.innerText = progress + "%";
       if (navigator.vibrate) navigator.vibrate(8);
     } else {
@@ -231,7 +250,7 @@ function complete() {
   bg1.style.opacity = 0;
   bg2.style.opacity = 1;
 
-  /* Music fade in */
+  /* Music fade-in */
   music.volume = 0;
   music.play();
   let v = 0;
@@ -239,7 +258,9 @@ function complete() {
     if (v < 0.5) {
       v += 0.02;
       music.volume = v;
-    } else clearInterval(fade);
+    } else {
+      clearInterval(fade);
+    }
   }, 200);
 }
 </script>
