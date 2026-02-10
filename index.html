@@ -5,27 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hold Me 🧸</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Sacramento&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #f4e6dd, #e0cfc2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  transition: background 3s ease;
+}
+
+/* ---------- BACKGROUND LAYERS ---------- */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 3s ease;
+}
+
+/* Scene 1 – Teddy Day */
+#bg1 {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
+    url("https://images.unsplash.com/photo-1608889175693-6fa2c63a1c4c");
+  opacity: 1;
+}
+
+/* Scene 2 – Hug with teddy-like person */
+#bg2 {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)),
+    url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e");
+  opacity: 0;
 }
 
 .container {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-/* ---------- FIRST PART (HUG METER) ---------- */
+/* ---------- FIRST PART ---------- */
 
 .hint {
   font-size: 16px;
@@ -58,12 +84,11 @@ body {
   color: #6a4a4a;
 }
 
-/* ---------- SECOND PART (EMOTIONAL REVEAL) ---------- */
+/* ---------- SECOND PART ---------- */
 
 .message {
   display: none;
   margin-top: 30px;
-  animation: fadeUp 2.5s ease forwards;
 }
 
 .name2 {
@@ -93,22 +118,9 @@ body {
 
 /* ---------- ANIMATIONS ---------- */
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes nameWrite {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-    letter-spacing: 6px;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    letter-spacing: 1px;
-  }
+  from { opacity: 0; transform: translateY(12px); letter-spacing: 6px; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: 1px; }
 }
 
 @keyframes lineAppear {
@@ -120,6 +132,10 @@ body {
 
 <body>
 
+<!-- BACKGROUNDS -->
+<div class="bg" id="bg1"></div>
+<div class="bg" id="bg2"></div>
+
 <div class="container"
      ontouchstart="start()"
      ontouchend="stop()"
@@ -127,11 +143,13 @@ body {
      onmouseup="stop()">
 
   <!-- FIRST PART -->
-  <div class="hint" id="hint">hold to hug 🧸</div>
+  <div id="intro">
+    <div class="hint" id="hint">hold to hug 🧸</div>
 
-  <div class="ring" id="ring">
-    <div class="fill" id="fill"></div>
-    <div class="percent" id="percent">0%</div>
+    <div class="ring" id="ring">
+      <div class="fill" id="fill"></div>
+      <div class="percent" id="percent">0%</div>
+    </div>
   </div>
 
   <!-- SECOND PART -->
@@ -176,6 +194,8 @@ const ring = document.getElementById("ring");
 const message = document.getElementById("message");
 const hint = document.getElementById("hint");
 const music = document.getElementById("music");
+const bg1 = document.getElementById("bg1");
+const bg2 = document.getElementById("bg2");
 
 function start() {
   if (holding) return;
@@ -204,11 +224,11 @@ function complete() {
   hint.style.display = "none";
   message.style.display = "block";
 
-  // warm emotional shift
-  document.body.style.background =
-    "radial-gradient(circle at center, #f8eee6, #e5d2c4)";
+  /* Background transition */
+  bg1.style.opacity = 0;
+  bg2.style.opacity = 1;
 
-  // music fade in
+  /* Music fade in */
   music.volume = 0;
   music.play();
   let v = 0;
