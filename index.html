@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hold Me 🧸</title>
+<title>Teddy Day 🧸</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Sacramento&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Allura&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; }
@@ -18,16 +19,15 @@ body {
   background: #000;
 }
 
-/* ---------- BACKGROUND LAYERS ---------- */
+/* BACKGROUNDS */
 .bg {
   position: fixed;
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: opacity 3s ease;
+  transition: opacity 2.8s ease;
 }
 
-/* 1️⃣ FIRST SCREEN – TEDDY */
 #bg1 {
   background-image:
     linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
@@ -37,7 +37,6 @@ body {
   opacity: 1;
 }
 
-/* 2️⃣ SECOND SCREEN – HUG */
 #bg2 {
   background-image:
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
@@ -47,7 +46,7 @@ body {
   opacity: 0;
 }
 
-/* ---------- CONTENT ---------- */
+/* CONTAINER */
 .container {
   position: relative;
   z-index: 2;
@@ -59,21 +58,27 @@ body {
   padding: 20px;
 }
 
-/* ---------- HUG METER ---------- */
-.hint {
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+/* INTRO (ONLY FIRST PAGE) */
+#intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.hint {
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+/* HUG METER */
 .ring {
   width: 140px;
   height: 140px;
   border-radius: 50%;
   border: 6px solid rgba(255,255,255,0.4);
   position: relative;
-  margin: auto;
 }
 
 .fill {
@@ -89,39 +94,37 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 20px;
   color: #fff;
 }
 
-/* ---------- MESSAGE ---------- */
-.message {
+/* MESSAGE (SECOND PAGE ONLY) */
+#message {
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
+/* NAME */
 .name {
-  font-family: 'Sacramento', cursive;
-  font-size: 48px;
+  font-family: 'Allura', cursive;
+  font-size: 46px;
   color: #fff;
-  margin-bottom: 18px;
-  opacity: 0;
-  animation: nameReveal 2.5s ease forwards;
+  margin-bottom: 14px;
+  animation: fadeUp 2s ease forwards;
 }
 
+/* TEXT */
 .line {
-  font-size: 18px;
-  line-height: 1.9;
   color: #fff;
+  font-size: 17px;
+  line-height: 1.9;
   opacity: 0;
-  animation: lineReveal 1.6s ease forwards;
+  animation: fadeUp 1.6s ease forwards;
 }
 
-@keyframes nameReveal {
-  from { opacity: 0; transform: translateY(12px); letter-spacing: 6px; }
-  to { opacity: 1; transform: translateY(0); letter-spacing: 1px; }
-}
-
-@keyframes lineReveal {
-  from { opacity: 0; transform: translateY(14px); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 </style>
@@ -129,7 +132,6 @@ body {
 
 <body>
 
-<!-- BACKGROUNDS -->
 <div class="bg" id="bg1"></div>
 <div class="bg" id="bg2"></div>
 
@@ -137,7 +139,7 @@ body {
      ontouchstart="start()"
      onmousedown="start()">
 
-  <!-- INTRO -->
+  <!-- FIRST PAGE -->
   <div id="intro">
     <div class="hint">hold to hug 🧸</div>
 
@@ -147,16 +149,28 @@ body {
     </div>
   </div>
 
-  <!-- MESSAGE -->
-  <div class="message" id="message">
-    <div class="name">Pranathi Bab❤️</div>
+  <!-- SECOND PAGE -->
+  <div id="message">
+    <div class="name">Pranathi Bab</div>
 
-    <div class="line" style="animation-delay:0.6s">I might not look perfect,</div>
-    <div class="line" style="animation-delay:2.2s">but I can be your teddy.</div>
-    <div class="line" style="animation-delay:3.8s">Someone you can lean on,</div>
-    <div class="line" style="animation-delay:5.4s">hug tightly,</div>
-    <div class="line" style="animation-delay:7s">and feel safe with.❤️🤍</div>
-    <div class="line" style="animation-delay:8.6s">Happy Teddy Day ❤️🧸</div>
+    <div class="line" style="animation-delay:0.6s">
+      I might not look perfect,
+    </div>
+    <div class="line" style="animation-delay:2s">
+      but I can be your teddy.
+    </div>
+    <div class="line" style="animation-delay:3.6s">
+      Someone you can lean on,
+    </div>
+    <div class="line" style="animation-delay:5.2s">
+      hug tightly,
+    </div>
+    <div class="line" style="animation-delay:6.8s">
+      and feel safe with. 🤍
+    </div>
+    <div class="line" style="animation-delay:8.4s">
+      Happy Teddy Day 🧸
+    </div>
   </div>
 
 </div>
@@ -171,29 +185,27 @@ function start() {
   timer = setInterval(() => {
     if (progress < 100) {
       progress++;
+      fill.style.clipPath = `inset(${100-progress}% 0 0 0)`;
+      percent.innerText = progress + "%";
 
-      // Progress ring
-      document.getElementById("fill").style.clipPath =
-        `inset(${100 - progress}% 0 0 0)`;
-      document.getElementById("percent").innerText = progress + "%";
-
-      // 🔥 TIGHT CONTINUOUS VIBRATION
-      // Every 10% for reliability
       if (navigator.vibrate && progress % 10 === 0) {
-        navigator.vibrate([40, 30, 40]);
+        navigator.vibrate([40,30,40]);
       }
-
     } else {
       clearInterval(timer);
 
-      document.getElementById("ring").style.display = "none";
-      document.getElementById("message").style.display = "block";
-      document.getElementById("bg1").style.opacity = 0;
-      document.getElementById("bg2").style.opacity = 1;
+      // hide intro completely
+      document.getElementById("intro").style.display = "none";
 
-      // 💥 FINAL STRONG HUG VIBRATION
+      // show message centered
+      document.getElementById("message").style.display = "flex";
+
+      // background transition
+      bg1.style.opacity = 0;
+      bg2.style.opacity = 1;
+
       if (navigator.vibrate) {
-        navigator.vibrate([120, 40, 120]);
+        navigator.vibrate([120,40,120]);
       }
     }
   }, 40);
