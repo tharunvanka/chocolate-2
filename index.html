@@ -5,150 +5,164 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hold Me 🧸</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --bg1: #f7efe9;
-  --bg2: #e9d8cc;
-  --text: #4a2f2f;
-}
-
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(180deg, var(--bg1), var(--bg2));
+  background: radial-gradient(circle at center, #f4e6dd, #e0cfc2);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  transition: background 3s ease;
 }
 
 .container {
   text-align: center;
-  padding: 20px;
 }
 
 .hint {
   font-size: 16px;
-  color: #6b4f4f;
-  opacity: 0.8;
-  transition: opacity 1.5s ease;
+  color: #6a4a4a;
+  margin-bottom: 20px;
+}
+
+.ring {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 6px solid rgba(106,74,74,0.2);
+  position: relative;
+  margin: auto;
+}
+
+.fill {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid #6a4a4a;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.1s linear;
+}
+
+.percent {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #6a4a4a;
+}
+
+.message {
+  display: none;
+  margin-top: 30px;
+  animation: fadeIn 3s ease forwards;
 }
 
 .name {
   font-family: 'Great Vibes', cursive;
-  font-size: 44px;
-  color: var(--text);
-  margin-top: 20px;
-  opacity: 0;
-  filter: blur(8px);
-  transition: opacity 2.5s ease, filter 2.5s ease;
+  font-size: 42px;
+  color: #5a3a3a;
 }
 
-.message {
-  margin-top: 24px;
+.text {
+  margin-top: 14px;
   font-size: 18px;
-  line-height: 1.9;
-  color: var(--text);
-  opacity: 0;
-  transition: opacity 3s ease;
+  line-height: 1.8;
+  color: #4a2f2f;
 }
 
-/* breathing animation */
-.breathe {
-  animation: breathe 4s ease-in-out infinite;
-}
-
-@keyframes breathe {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.015); }
-  100% { transform: scale(1); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container breathe"
-     ontouchstart="startHug()"
-     ontouchend="endHug()"
-     onmousedown="startHug()"
-     onmouseup="endHug()">
+<div class="container"
+     ontouchstart="start()"
+     ontouchend="stop()"
+     onmousedown="start()"
+     onmouseup="stop()">
 
-  <div class="hint" id="hint">hold me for a moment 🧸</div>
+  <div class="hint" id="hint">hold to hug 🧸</div>
 
-  <div class="name" id="name">Pranathi</div>
-
-  <div class="message" id="msg">
-    I might not look perfect,<br>
-    but I can be your teddy —<br>
-    someone you can lean on,<br>
-    hug tightly, and feel safe with. 🤍<br><br>
-
-    I’ll be here…<br>
-    quietly,<br>
-    warmly,<br>
-    always.<br><br>
-
-    <b>Happy Teddy Day 🧸</b>
+  <div class="ring" id="ring">
+    <div class="fill" id="fill"></div>
+    <div class="percent" id="percent">0%</div>
   </div>
+
+  <div class="message" id="message">
+    <div class="name">Pranathi</div>
+    <div class="text">
+      I might not look perfect,<br>
+      but I can be your teddy —<br>
+      someone you can lean on,<br>
+      hug tightly, and feel safe with. 🤍<br><br>
+      <b>Happy Teddy Day 🧸</b>
+    </div>
+  </div>
+
 </div>
 
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/06/06/audio_5f4c2e92c4.mp3">
+  <source src="https://cdn.pixabay.com/audio/2023/05/23/audio_74f8f3d2e5.mp3">
 </audio>
 
 <script>
-let hugging = false;
-let musicStarted = false;
+let holding = false;
+let progress = 0;
+let interval;
 
-const nameEl = document.getElementById("name");
-const msgEl = document.getElementById("msg");
-const hintEl = document.getElementById("hint");
+const fill = document.getElementById("fill");
+const percent = document.getElementById("percent");
+const ring = document.getElementById("ring");
+const message = document.getElementById("message");
+const hint = document.getElementById("hint");
 const music = document.getElementById("music");
 
-function startHug() {
-  if (hugging) return;
-  hugging = true;
+function start() {
+  if (holding) return;
+  holding = true;
 
-  hintEl.style.opacity = 0;
-  nameEl.style.opacity = 1;
-  nameEl.style.filter = "blur(0)";
-  msgEl.style.opacity = 1;
-
-  // Warm background shift
-  document.body.style.background =
-    "linear-gradient(180deg, #f3e2d5, #dcc6b8)";
-
-  // Gentle vibration (mobile)
-  if (navigator.vibrate) {
-    navigator.vibrate([40, 60, 40]);
-  }
-
-  // Music fade-in
-  if (!musicStarted) {
-    music.volume = 0;
-    music.play();
-    let v = 0;
-    const fade = setInterval(() => {
-      if (v < 0.45) {
-        v += 0.015;
-        music.volume = v;
-      } else clearInterval(fade);
-    }, 200);
-    musicStarted = true;
-  }
+  interval = setInterval(() => {
+    if (progress < 100) {
+      progress++;
+      fill.style.clipPath = `inset(${100-progress}% 0 0 0)`;
+      percent.innerText = progress + "%";
+      if (navigator.vibrate) navigator.vibrate(8);
+    } else {
+      complete();
+    }
+  }, 40);
 }
 
-function endHug() {
-  hugging = false;
-  // We intentionally DO NOT hide content
-  // Hug once, comfort stays 🤍
+function stop() {
+  holding = false;
+  clearInterval(interval);
+}
+
+function complete() {
+  clearInterval(interval);
+  ring.style.display = "none";
+  hint.style.display = "none";
+  message.style.display = "block";
+
+  music.volume = 0;
+  music.play();
+  let v = 0;
+  const fade = setInterval(() => {
+    if (v < 0.5) {
+      v += 0.02;
+      music.volume = v;
+    } else clearInterval(fade);
+  }, 200);
 }
 </script>
 
