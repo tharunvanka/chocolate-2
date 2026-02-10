@@ -22,21 +22,23 @@ body {
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: opacity 3s ease;
+  transition: opacity 3.2s ease;
 }
 
-/* Scene 1 – Teddy Day */
+/* 1️⃣ Teddy Bear – portrait feel, soft blur */
 #bg1 {
   background-image:
-    linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
-    url("https://images.unsplash.com/photo-1608889175693-6fa2c63a1c4c");
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url("https://images.unsplash.com/photo-1549880338-65ddcdfd017b");
+  filter: blur(3px);
+  transform: scale(1.05);
   opacity: 1;
 }
 
-/* Scene 2 – Hug with teddy-like person */
+/* 2️⃣ Hugging – warm, emotional */
 #bg2 {
   background-image:
-    linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)),
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
     url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e");
   opacity: 0;
 }
@@ -55,15 +57,16 @@ body {
 
 .hint {
   font-size: 16px;
-  color: #6a4a4a;
+  color: #fff;
   margin-bottom: 20px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 .ring {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  border: 6px solid rgba(106,74,74,0.25);
+  border: 6px solid rgba(255,255,255,0.4);
   position: relative;
   margin: auto;
 }
@@ -72,7 +75,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 6px solid #6a4a4a;
+  border: 6px solid #fff;
   clip-path: inset(100% 0 0 0);
 }
 
@@ -81,7 +84,7 @@ body {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
-  color: #6a4a4a;
+  color: #fff;
 }
 
 /* ---------- SECOND PART ---------- */
@@ -94,7 +97,7 @@ body {
 .name2 {
   font-family: 'Sacramento', cursive;
   font-size: 48px;
-  color: #5a3a3a;
+  color: #fff;
   margin-bottom: 18px;
   opacity: 0;
   animation: nameWrite 2.8s ease forwards;
@@ -103,7 +106,7 @@ body {
 .line {
   font-size: 18px;
   line-height: 1.9;
-  color: #4a2f2f;
+  color: #fff;
   opacity: 0;
   animation: lineAppear 1.8s ease forwards;
 }
@@ -224,7 +227,7 @@ function complete() {
   hint.style.display = "none";
   message.style.display = "block";
 
-  /* Background transition */
+  /* Background crossfade */
   bg1.style.opacity = 0;
   bg2.style.opacity = 1;
 
