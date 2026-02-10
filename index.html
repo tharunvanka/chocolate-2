@@ -3,20 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Teddy 🧸</title>
+<title>Hold Me 🧸</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg1: #f7efe9;
+  --bg2: #e9d8cc;
+  --text: #4a2f2f;
+}
+
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   height: 100vh;
+  background: linear-gradient(180deg, var(--bg1), var(--bg2));
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Playfair Display', serif;
-  background: linear-gradient(180deg, #f6efe9, #e8d9cf);
   overflow: hidden;
+  transition: background 3s ease;
 }
 
 .container {
@@ -26,39 +35,52 @@ body {
 
 .hint {
   font-size: 16px;
-  color: #6a4a4a;
+  color: #6b4f4f;
   opacity: 0.8;
-  margin-bottom: 20px;
+  transition: opacity 1.5s ease;
 }
 
 .name {
   font-family: 'Great Vibes', cursive;
-  font-size: 42px;
-  color: #5a3a3a;
+  font-size: 44px;
+  color: var(--text);
+  margin-top: 20px;
   opacity: 0;
-  transition: opacity 2s ease;
+  filter: blur(8px);
+  transition: opacity 2.5s ease, filter 2.5s ease;
 }
 
 .message {
-  margin-top: 20px;
+  margin-top: 24px;
   font-size: 18px;
-  line-height: 1.8;
-  color: #4a2f2f;
+  line-height: 1.9;
+  color: var(--text);
   opacity: 0;
-  transition: opacity 2.5s ease;
+  transition: opacity 3s ease;
+}
+
+/* breathing animation */
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+  100% { transform: scale(1); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container"
-     onmousedown="startHug()"
-     onmouseup="endHug()"
+<div class="container breathe"
      ontouchstart="startHug()"
-     ontouchend="endHug()">
+     ontouchend="endHug()"
+     onmousedown="startHug()"
+     onmouseup="endHug()">
 
-  <div class="hint">hold me for a moment 🧸</div>
+  <div class="hint" id="hint">hold me for a moment 🧸</div>
 
   <div class="name" id="name">Pranathi</div>
 
@@ -68,36 +90,65 @@ body {
     someone you can lean on,<br>
     hug tightly, and feel safe with. 🤍<br><br>
 
-    Happy Teddy Day 🧸
+    I’ll be here…<br>
+    quietly,<br>
+    warmly,<br>
+    always.<br><br>
+
+    <b>Happy Teddy Day 🧸</b>
   </div>
 </div>
 
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/04/04/audio_1c5f2b7d79.mp3">
+  <source src="https://cdn.pixabay.com/audio/2023/06/06/audio_5f4c2e92c4.mp3">
 </audio>
 
 <script>
+let hugging = false;
+let musicStarted = false;
+
 const nameEl = document.getElementById("name");
 const msgEl = document.getElementById("msg");
+const hintEl = document.getElementById("hint");
 const music = document.getElementById("music");
 
 function startHug() {
+  if (hugging) return;
+  hugging = true;
+
+  hintEl.style.opacity = 0;
   nameEl.style.opacity = 1;
+  nameEl.style.filter = "blur(0)";
   msgEl.style.opacity = 1;
 
-  music.volume = 0;
-  music.play();
-  let v = 0;
-  const fade = setInterval(() => {
-    if (v < 0.5) {
-      v += 0.02;
-      music.volume = v;
-    } else clearInterval(fade);
-  }, 200);
+  // Warm background shift
+  document.body.style.background =
+    "linear-gradient(180deg, #f3e2d5, #dcc6b8)";
+
+  // Gentle vibration (mobile)
+  if (navigator.vibrate) {
+    navigator.vibrate([40, 60, 40]);
+  }
+
+  // Music fade-in
+  if (!musicStarted) {
+    music.volume = 0;
+    music.play();
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 0.45) {
+        v += 0.015;
+        music.volume = v;
+      } else clearInterval(fade);
+    }, 200);
+    musicStarted = true;
+  }
 }
 
 function endHug() {
-  // Optional: keep content visible or fade slightly
+  hugging = false;
+  // We intentionally DO NOT hide content
+  // Hug once, comfort stays 🤍
 }
 </script>
 
