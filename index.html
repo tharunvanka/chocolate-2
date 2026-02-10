@@ -8,15 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Sacramento&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
+  background: #000;
 }
 
 /* ---------- BACKGROUND LAYERS ---------- */
@@ -28,27 +27,27 @@ body {
   transition: opacity 3s ease;
 }
 
-/* 1️⃣ FIRST: SINGLE TEDDY (slight blur, portrait feel) */
+/* 1️⃣ FIRST SCREEN – TEDDY */
 #bg1 {
   background-image:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("https://images.unsplash.com/photo-Ad3DSgYUszI?auto=format&fit=crop&w=1200&q=80");
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url("teddy.jpg");
   filter: blur(4px);
   transform: scale(1.08);
   opacity: 1;
 }
 
-/* 2️⃣ SECOND: TEDDY HUG (clearer, warm) */
+/* 2️⃣ SECOND SCREEN – HUG */
 #bg2 {
   background-image:
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("https://images.unsplash.com/photo-aqUBdrGeAMw?auto=format&fit=crop&w=1200&q=80");
+    url("hug.jpg");
   filter: blur(1px);
   transform: scale(1.05);
   opacity: 0;
 }
 
-/* ---------- LAYOUT ---------- */
+/* ---------- CONTENT ---------- */
 .container {
   position: relative;
   z-index: 2;
@@ -60,7 +59,7 @@ body {
   padding: 20px;
 }
 
-/* ---------- FIRST PART (HUG METER) ---------- */
+/* ---------- HUG METER ---------- */
 .hint {
   font-size: 16px;
   color: #fff;
@@ -94,19 +93,18 @@ body {
   color: #fff;
 }
 
-/* ---------- SECOND PART (MESSAGE) ---------- */
+/* ---------- MESSAGE ---------- */
 .message {
   display: none;
-  margin-top: 30px;
 }
 
-.name2 {
+.name {
   font-family: 'Sacramento', cursive;
   font-size: 48px;
   color: #fff;
   margin-bottom: 18px;
   opacity: 0;
-  animation: nameWrite 2.8s ease forwards;
+  animation: nameReveal 2.5s ease forwards;
 }
 
 .line {
@@ -114,40 +112,17 @@ body {
   line-height: 1.9;
   color: #fff;
   opacity: 0;
-  animation: lineAppear 1.8s ease forwards;
+  animation: lineReveal 1.6s ease forwards;
 }
 
-.end {
-  margin-top: 18px;
-  font-size: 16px;
-  opacity: 0;
-  animation: lineAppear 2s ease forwards;
-  animation-delay: 9s;
+@keyframes nameReveal {
+  from { opacity: 0; transform: translateY(12px); letter-spacing: 6px; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: 1px; }
 }
 
-/* ---------- ANIMATIONS ---------- */
-@keyframes nameWrite {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-    letter-spacing: 6px;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    letter-spacing: 1px;
-  }
-}
-
-@keyframes lineAppear {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes lineReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -160,13 +135,11 @@ body {
 
 <div class="container"
      ontouchstart="start()"
-     ontouchend="stop()"
-     onmousedown="start()"
-     onmouseup="stop()">
+     onmousedown="start()">
 
-  <!-- FIRST PART -->
+  <!-- INTRO -->
   <div id="intro">
-    <div class="hint" id="hint">hold to hug 🧸</div>
+    <div class="hint">hold to hug 🧸</div>
 
     <div class="ring" id="ring">
       <div class="fill" id="fill"></div>
@@ -174,94 +147,56 @@ body {
     </div>
   </div>
 
-  <!-- SECOND PART -->
+  <!-- MESSAGE -->
   <div class="message" id="message">
-    <div class="name2">Pranathi</div>
+    <div class="name">Pranathi Bab❤️</div>
 
-    <div class="line" style="animation-delay:0.6s">
-      I might not look perfect,
-    </div>
-    <div class="line" style="animation-delay:2.2s">
-      but I can be your teddy.
-    </div>
-    <div class="line" style="animation-delay:3.8s">
-      Someone you can lean on,
-    </div>
-    <div class="line" style="animation-delay:5.4s">
-      hug tightly,
-    </div>
-    <div class="line" style="animation-delay:7s">
-      and feel safe with. 🤍
-    </div>
-
-    <div class="end">
-      Happy Teddy Day 🧸
-    </div>
+    <div class="line" style="animation-delay:0.6s">I might not look perfect,</div>
+    <div class="line" style="animation-delay:2.2s">but I can be your teddy.</div>
+    <div class="line" style="animation-delay:3.8s">Someone you can lean on,</div>
+    <div class="line" style="animation-delay:5.4s">hug tightly,</div>
+    <div class="line" style="animation-delay:7s">and feel safe with.❤️🤍</div>
+    <div class="line" style="animation-delay:8.6s">Happy Teddy Day ❤️🧸</div>
   </div>
 
 </div>
 
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/05/23/audio_74f8f3d2e5.mp3">
-</audio>
-
 <script>
-let holding = false;
 let progress = 0;
-let interval;
-
-const fill = document.getElementById("fill");
-const percent = document.getElementById("percent");
-const ring = document.getElementById("ring");
-const message = document.getElementById("message");
-const hint = document.getElementById("hint");
-const music = document.getElementById("music");
-const bg1 = document.getElementById("bg1");
-const bg2 = document.getElementById("bg2");
+let timer = null;
 
 function start() {
-  if (holding) return;
-  holding = true;
+  if (timer) return;
 
-  interval = setInterval(() => {
+  timer = setInterval(() => {
     if (progress < 100) {
       progress++;
-      fill.style.clipPath = `inset(${100 - progress}% 0 0 0)`;
-      percent.innerText = progress + "%";
-      if (navigator.vibrate) navigator.vibrate(8);
+
+      // Progress ring
+      document.getElementById("fill").style.clipPath =
+        `inset(${100 - progress}% 0 0 0)`;
+      document.getElementById("percent").innerText = progress + "%";
+
+      // 🔥 TIGHT CONTINUOUS VIBRATION
+      // Every 10% for reliability
+      if (navigator.vibrate && progress % 10 === 0) {
+        navigator.vibrate([40, 30, 40]);
+      }
+
     } else {
-      complete();
+      clearInterval(timer);
+
+      document.getElementById("ring").style.display = "none";
+      document.getElementById("message").style.display = "block";
+      document.getElementById("bg1").style.opacity = 0;
+      document.getElementById("bg2").style.opacity = 1;
+
+      // 💥 FINAL STRONG HUG VIBRATION
+      if (navigator.vibrate) {
+        navigator.vibrate([120, 40, 120]);
+      }
     }
   }, 40);
-}
-
-function stop() {
-  holding = false;
-  clearInterval(interval);
-}
-
-function complete() {
-  clearInterval(interval);
-  ring.style.display = "none";
-  hint.style.display = "none";
-  message.style.display = "block";
-
-  /* Background crossfade */
-  bg1.style.opacity = 0;
-  bg2.style.opacity = 1;
-
-  /* Music fade-in */
-  music.volume = 0;
-  music.play();
-  let v = 0;
-  const fade = setInterval(() => {
-    if (v < 0.5) {
-      v += 0.02;
-      music.volume = v;
-    } else {
-      clearInterval(fade);
-    }
-  }, 200);
 }
 </script>
 
